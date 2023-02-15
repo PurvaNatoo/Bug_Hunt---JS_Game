@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bug Hunt</title>
+    <style>
+        /* animation */
+        @keyframes move_b_t
+        {
+            from{
+                margin-top:450px;
+                margin-left:200px;
+            }
+            to{
+                margin-top:0px;
+                margin-left:200px;
+            }
+
+        }
+
+        @keyframes move_l_r
+        {
+            from{
+                margin-left:0px;
+                margin-top:150px;
+                
+            }
+            to{
+                margin-left:450px;
+                margin-top:150px;
+            }
+        }
+
+        @keyframes move_r_l
+        {
+            from{
+                margin-left:450px;
+                margin-top:300px;
+            }
+            to{
+                margin-left:0px;
+                margin-top:300px;
+            }
+        }
+
+        @keyframes move_t_b
+        {
+            from{
+                margin-top:0px;
+                margin-left:450px;
+            }
+            to{
+                margin-top:450px;
+                margin-left:450px;
+            }
+        }
+
+        @keyframes move_d_1{
+            from{
+                margin-top:0px;
+                margin-left:0px;
+            }
+            to{
+                margin-top:450px;
+                margin-left:450px;
+            }
+        }
+
+        @keyframes move_d_2{
+            from{
+                margin-top:450px;
+                margin-left:0px;
+            }
+            to{
+                margin-top:00px;
+                margin-left:450px;
+            }
+        }
+        #bug{
+            height:40px;
+            width:40px;
+            margin-top:0px;
+            margin-left:0px;            
+        }
+        
+        
+        #score{
+            height:50px;
+            width:150px;
+            border:1px solid lightseagreen;
+            padding-top:15px;
+            color:red;
+            font-size: large;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: center;
+            margin-left:50px;
+        }
+        #hits{
+            height:50px;
+            width:150px;
+            border:1px solid lightseagreen;
+            padding-top:15px;
+            color:red;
+            font-size: large;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: center;
+            margin-left:50px;
+
+        }
+        #start{
+            height:25px;
+            width:150px;
+            border:1px solid lightseagreen;
+            color:black;
+            font-weight: bold;
+        }
+
+        #help{
+            height:25px;
+            width:150px;
+            border:1px solid lightseagreen;
+            color:black;
+            font-weight: bold;
+        }
+        #boardTitle{
+            color:cornflowerblue;
+            text-align:start;
+            text-decoration: underline;
+            margin-left:100px;
+        }
+        #gameZone{
+            height:500px;
+            width:500px;
+            border:1px solid lightseagreen;
+            margin-left:25px;
+            margin-top:25px;
+            flex:0 0 auto;
+        }
+        #board{
+            border:1px solid lightseagreen;
+            height:450px;
+            width:325px;
+            margin-top:25px;
+            margin-left:25px;
+            align-self:flex-start;
+            display:grid;
+
+        }
+        #gameTitle{
+            color:lightcoral;
+            float:center;
+            margin-left:600px;
+            margin-top:30px;
+            text-decoration:underline;
+        }
+        #game{
+            height:550px;
+            width:900px;
+            margin-left:200px;
+            border:1px solid red;
+            display:flex;
+        }
+        
+        
+        
+    </style>
+</head>
+<body>
+    <h1 id="gameTitle">Bug Hunt</h1>
+
+    <div id="game" class="bigWindow"> 
+
+        <div id="gameZone">              
+            <img src="./bugRedbt.jpg" id="bug">            
+        </div>
+
+        <div id="board">
+            <h2 id="boardTitle">
+                Score Board
+            </h2>
+
+            <h3 style="color:steelblue;margin-left:50px;">Score</h3>
+            <div id="score">             
+            </div>
+
+            <h3 style="color:steelblue;margin-left:50px;">Hits</h3>
+            <div id="hits">                
+            </div>
+            <br/>
+            <br/>
+            <button id="start" style="background-color:steelblue;margin-left:100px">Start</button>
+            <br/>
+
+            <button id="help" style="background-color:steelblue;margin-left:100px">Help</button>
+            <br/>
+        </div>
+     </div> 
+
+
+
+
+     <!-- Code -->
+    <script>
+        
+        function $(id)
+        {
+            return document.getElementById(id);
+        }
+        var clicks = 0;
+        var onScreenClick=0;
+        var scores = 0;
+
+        function gamestart(){
+
+            
+
+            $("gameZone").addEventListener('click',function()
+            {
+                onScreenClick++;
+                scores--;
+                $('hits').innerHTML = onScreenClick;
+                $('score').innerHTML = scores;
+                //console.log(onScreenClick);
+            })
+
+
+            $("bug").addEventListener('click',function f1(){
+                $("bug").style.animationPlayState="paused"
+                clicks++;
+                scores = scores+11;
+                $('score').innerHTML = scores;
+                //console.log("c1"+clicks);
+                $('bug').src="./bugRedlr.jpg";
+                $('bug').style.animation="move_l_r 5s";
+                $('bug').style.animationIterationCount="infinite"
+                $('bug').removeEventListener('click',f1);
+
+                $('bug').addEventListener('click',function f2(){
+                    $("bug").style.animationPlayState="paused"
+                    clicks++;
+                    scores = scores+11;
+                    $('score').innerHTML = scores;
+                    //console.log("c2"+clicks);
+                    $('bug').src="./bugRedrl.jpg";
+                    $('bug').style.animation="move_r_l 2s";
+                    $('bug').style.animationIterationCount="infinite"
+                    $('bug').removeEventListener('click',f2);
+
+                    $('bug').addEventListener('click',function f3(){
+                        $("bug").style.animationPlayState="paused"
+                        clicks++;
+                        scores = scores+11;
+                        $('score').innerHTML = scores;
+                        //console.log("c3"+clicks);
+                        $('bug').src="./bugRedtb.jpg";
+                        $('bug').style.animation="move_t_b 1s";
+                        $('bug').style.animationIterationCount="infinite"
+                        $('bug').removeEventListener('click',f3);
+
+                        $('bug').addEventListener('click',function f4(){
+                            $("bug").style.animationPlayState="paused"
+                            clicks++;
+                            scores = scores+11;
+                            $('score').innerHTML = scores;
+                            //console.log("c4"+clicks);
+                            $('bug').src="./bugGreenbt.png";
+                            $('bug').style.height="20px";
+                            $('bug').style.width="20px";
+                            $('bug').style.animation="move_b_t 10s";
+                            $('bug').style.animationIterationCount="infinite"
+                            $('bug').removeEventListener('click',f4);
+
+                            $('bug').addEventListener('click',function f5(){
+                                $("bug").style.animationPlayState="paused"
+                                clicks++;
+                                scores = scores+11;
+                                $('score').innerHTML = scores;
+                                //console.log("c4"+clicks);
+                                $('bug').src="./bugGreenlr.png";
+                                $('bug').style.height="20px";
+                                $('bug').style.width="20px";
+                                $('bug').style.animation="move_l_r 5s";
+                                $('bug').style.animationIterationCount="infinite"
+                                $('bug').removeEventListener('click',f5); 
+
+                                $('bug').addEventListener('click',function f6(){
+                                    $("bug").style.animationPlayState="paused"
+                                    clicks++;
+                                    scores = scores+11;
+                                    $('score').innerHTML = scores;
+                                    //console.log("c4"+clicks);
+                                    $('bug').src="./bugGreenrl.png";
+                                    $('bug').style.height="20px";
+                                    $('bug').style.width="20px";
+                                    $('bug').style.animation="move_r_l 2s";
+                                    $('bug').style.animationIterationCount="infinite"
+                                    $('bug').removeEventListener('click',f6); 
+
+                                    $('bug').addEventListener('click',function f7(){
+                                        $("bug").style.animationPlayState="paused"
+                                        clicks++;
+                                        scores = scores+11;
+                                        $('score').innerHTML = scores;
+                                        //console.log("c4"+clicks);
+                                        $('bug').src="./flyd1.png";
+                                        $('bug').style.height="40px";
+                                        $('bug').style.width="40px";
+                                        $('bug').style.animation="move_d_1 10s";
+                                        $('bug').style.animationIterationCount="infinite"
+                                        $('bug').removeEventListener('click',f7); 
+                                        
+                                        $('bug').addEventListener('click',function f8(){
+                                            $("bug").style.animationPlayState="paused"
+                                            clicks++;
+                                            scores = scores+11;
+                                            $('score').innerHTML = scores;
+                                            //console.log("c4"+clicks);
+                                            $('bug').src="./flyd2.png";
+                                            $('bug').style.height="40px";
+                                            $('bug').style.width="40px";
+                                            $('bug').style.animation="move_d_2 4s";
+                                            $('bug').style.animationIterationCount="infinite"
+                                            $('bug').removeEventListener('click',f8); 
+
+                                            $('bug').addEventListener('click',function f9(){
+                                                $("bug").style.animationPlayState="paused"
+                                                clicks++;
+                                                scores = scores+11;
+                                                $('score').innerHTML = scores;
+                                                //console.log("c4"+clicks);
+                                                $('bug').src="./fireblast.jpg";
+                                                $('bug').style.height="40px";
+                                                $('bug').style.width="40px";
+                                                $('bug').removeEventListener('click',f9); 
+
+                                                $('bug').addEventListener('mouseover',function f10(){
+                                                    $('bug').src="./fireblast.jpg";
+                                                    $('bug').style.height="40px";
+                                                    $('bug').style.width="40px";
+                                                    $('gameZone').style.color="red";
+                                                    $('gameZone').style.textAlign="center"
+                                                    $("gameZone").style.fontSize="xx-large"
+                                                    $('gameZone').innerHTML = "You win!!<br/>Score: "+scores+"<br/>Hits: "+onScreenClick;
+
+                                                })                                            
+                                            })
+                                        })
+                                    })   
+                                })
+                            })                   
+                        })
+                    })
+                })
+            })
+
+        }
+
+        $('start').addEventListener('click',function(){
+            $('bug').src="./bugRedbt.jpg";
+            $('bug').style.animation="move_b_t 20s";
+            $('bug').style.animationIterationCount="infinite"
+            gamestart();
+            $('start').hidden=true;
+            $('help').hidden=true;
+        });
+
+        $('help').addEventListener('click',function()
+        {
+            alert("Kill the bug by clicking on it. Each correct hit shall give you 10 points. Each missed hit will cause you to loose 1 point.");
+        })
+    </script>
+</body>
+</html>
